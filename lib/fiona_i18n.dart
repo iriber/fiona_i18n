@@ -5,6 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class Fionai18n {
   late Map<String, dynamic> messages;
@@ -21,10 +22,12 @@ class Fionai18n {
     return await rootBundle.loadString('assets/$name');
   }
 
-  Future<void> initialize(BuildContext context) async {
+  Future<void> initialize() async {
     String jsonMessages = "";
-    Locale myLocale = Localizations.localeOf(context);
-    switch (myLocale.languageCode.toLowerCase()) {
+    String locale = Intl.getCurrentLocale();
+    locale = locale.split("_")[0];
+    //Locale myLocale = Localizations.localeOf(context);
+    switch (locale.toLowerCase()) {
       case "es":
         {
           jsonMessages = await loadFile("i18n/messages_es.json");
