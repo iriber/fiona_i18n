@@ -3,11 +3,8 @@ library fiona_i18n;
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-
 class Fionai18n {
+
   late Map<String, dynamic> messages;
 
   Fionai18n._internal();
@@ -22,24 +19,26 @@ class Fionai18n {
     return await rootBundle.loadString('assets/$name');
   }
 
-  Future<void> initialize() async {
-    String jsonMessages = "";
-    String locale = Intl.getCurrentLocale();
-    locale = locale.split("_")[0];
-    //Locale myLocale = Localizations.localeOf(context);
-    switch (locale.toLowerCase()) {
-      case "es":
-        {
-          jsonMessages = await loadFile("i18n/messages_es.json");
-        }
-        break;
-      case "en":
-        {
-          jsonMessages = await loadFile("i18n/messages_en.json");
-        }
-        break;
+  Future<void> initialize({String locale="es"}) async {
+    String jsonMessages;
+    try{
+      jsonMessages = await loadFile("i18n/messages_${locale.toLowerCase()}.json");
+    }catch(e){
+      jsonMessages = "";
     }
-    messages = json.decode(jsonMessages);
+    if(jsonMessages.isEmpty){
+      try{
+        jsonMessages = await loadFile("i18n/messages.json");
+      }catch(e){
+        jsonMessages = "";
+      }
+    }
+    if(jsonMessages.isNotEmpty){
+      messages = json.decode(jsonMessages);
+    }else{
+      messages = {};
+    }
+
   }
 
   static String message(String key) {
