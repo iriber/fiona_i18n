@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fiona_i18n/fiona_i18n.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Fionai18n().initialize(locale: "es");
@@ -36,8 +35,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     List<Widget> children = List.empty(growable: true);
@@ -45,7 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
     String msgTitle = Fionai18n.message("title");
     String msgExample = Fionai18n.message("example");
 
-    children.add(Center(child: Text(msgTitle, style: const TextStyle(fontSize: 20),)));
+    children.add(Center(
+        child: Text(
+      msgTitle,
+      style: const TextStyle(fontSize: 20),
+    )));
     children.add(Center(child: Text(msgExample)));
 
     children.add(Row(
@@ -55,9 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 5,
             child: ElevatedButton(
               onPressed: () async {
-                 await Fionai18n().initialize(locale: "es");
-                 setState(() {
-                 });
+                await Fionai18n().initialize(locale: "es");
+                setState(() {});
               },
               child: const Text("ES"),
             )),
@@ -66,8 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ElevatedButton(
               onPressed: () async {
                 await Fionai18n().initialize(locale: "en");
-                setState(() {
-                });
+                setState(() {});
               },
               child: const Text("EN"),
             )),

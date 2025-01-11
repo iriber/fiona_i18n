@@ -1,7 +1,7 @@
 name: fiona_i18n
 description: Internationalization. To manage texts in different languages.
   You will have to create the file messages and this library will load the texts from those files.
-version: 1.0.0
+version: 1.2.0
 repository: https://github.com/iriber/fiona_i18n
 
 environment:
